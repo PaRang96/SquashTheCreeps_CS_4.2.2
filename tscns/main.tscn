@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ccxhwmumchcay"]
 
-[ext_resource type="PackedScene" uid="uid://blpjhsmqigxiq" path="res://tscns/Player.tscn" id="1_jvay7"]
+[ext_resource type="PackedScene" uid="uid://blpjhsmqigxiq" path="res://tscns/player.tscn" id="1_jvay7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mhjsj"]
 
@@ -32,3 +32,5 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
 projection = 1
 size = 19.0
+
+[node name="Cylinders" type="Node3D" parent="."]

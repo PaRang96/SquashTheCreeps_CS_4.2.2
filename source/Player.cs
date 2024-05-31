@@ -17,6 +17,24 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public int BounceImpulse { get; set; } = 16;
 
+	//[Export]
+	private Area3D MobDetector { get; set; }
+
+	[Signal]
+	public delegate void HitEventHandler();
+
+    public override void _Ready()
+    {
+        base._Ready();
+		MobDetector = GetNode<Area3D>("MobDetector");
+        MobDetector.BodyEntered += OnMobDetected;
+    }
+
+    private void OnMobDetected(Node3D body)
+    {
+		Die();
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
@@ -83,4 +101,10 @@ public partial class Player : CharacterBody3D
 		Velocity = _targetVelocity;
 		MoveAndSlide();
     }
+
+	private void Die()
+	{
+		EmitSignal(SignalName.Hit);
+		QueueFree();
+	}
 }

@@ -36,6 +36,7 @@ public partial class Mob : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
+        base._PhysicsProcess(delta);
         MoveAndSlide();
     }
 

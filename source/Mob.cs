@@ -12,6 +12,9 @@ public partial class Mob : CharacterBody3D
     [Export]
     public VisibleOnScreenNotifier3D visibilityNotifier { get; set; }
 
+    [Signal]
+    public delegate void SquashedEventHandler();
+
     // This function will be called from the main scene
     public void Initialize(Vector3 startPosition, Vector3 playerPosition)
     {
@@ -34,5 +37,12 @@ public partial class Mob : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         MoveAndSlide();
+    }
+
+    public void Squash()
+    {
+        EmitSignal(SignalName.Squashed);
+
+        QueueFree();
     }
 }

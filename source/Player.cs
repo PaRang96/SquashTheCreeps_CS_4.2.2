@@ -11,6 +11,12 @@ public partial class Player : CharacterBody3D
 
 	private Vector3 _targetVelocity = Vector3.Zero;
 
+	[Export]
+	public int JumpImpulse { get; set; } = 20;
+
+	[Export]
+	public int BounceImpulse { get; set; } = 16;
+
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
@@ -49,6 +55,28 @@ public partial class Player : CharacterBody3D
 		if (!IsOnFloor())
 		{
 			_targetVelocity.Y -= FallAcceleration * (float)delta;
+		}
+
+		if (IsOnFloor() && Input.IsActionJustPressed("jump"))
+		{
+			_targetVelocity.Y = JumpImpulse;
+		}
+
+		for (int index = 0; index < GetSlideCollisionCount(); index++)
+		{
+			KinematicCollision3D collision = GetSlideCollision(index);
+
+			if (collision.GetCollider() is Mob mob)
+			{
+				// if player is hitting another collision from above
+				if (Vector3.Up.Dot(collision.GetNormal()) > 0.1f)
+				{
+					mob.Squash();
+					_targetVelocity.Y = BounceImpulse;
+
+					break;
+				}
+			}
 		}
 
 		// actual movement

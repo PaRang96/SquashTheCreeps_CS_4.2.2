@@ -6,7 +6,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_exmbf"]
 size = Vector3(0.685791, 1, 1)
 
-[node name="Mob" type="CharacterBody3D" node_paths=PackedStringArray("visibilityNotifier")]
+[node name="Mob" type="CharacterBody3D" node_paths=PackedStringArray("visibilityNotifier") groups=["mob"]]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_ppwmg")
 visibilityNotifier = NodePath("VisibilityNotifier")
 
